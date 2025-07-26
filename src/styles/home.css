@@ -1,0 +1,47 @@
+/* MessageBottleUI.css */
+.container {
+    background: linear-gradient(to bottom, #49a6e9, #c1e6ff);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    background-image: url("../assets/homepage.jpg");
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: contain;
+  }
+  
+  .bottle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 2rem;
+  }
+  
+  .bottle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .bottle-img {
+    width: 70px;
+    height: auto;
+  }
+  
+  .label {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #333;
+    text-align: center;
+  }
+  
+  @media screen and (max-width: 400px) {
+    .bottle-img {
+      width: 60px;
+    }
+  }
+  

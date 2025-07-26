@@ -2,31 +2,44 @@ import React, { useState } from 'react';
 import '../styles/login.css';
 
 
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+
 const Login = ( { setCurrentPage } ) => {
-  const [formData, setFormData] = useState({
-    id: '',
-    password: ''
-  });
+  const [userEmail, setUserEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+
+  const handleLogin = () => {
+    if (!userEmail) {
+      setError('Email is required');
+      return;
+    }
+    else if (!password) {
+      setError('Password is required');
+      return;
+    }
+    else if (!isValidEmail(userEmail)) {
+      setError('Invalid email address');
+      return;
+    }
+    setError('');
+    console.log('Login attempt:', userEmail, password);
+    setCurrentPage('home');
   };
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    console.log('Login attempt:', formData);
-    // Add your login logic here
-  };
+
 
   const handleSignUp = () => {
     console.log('Sign up clicked'); 
     setCurrentPage('signup');
-    // Add your sign up logic here
   };
+
+
 
   return (
     <div className="login-container">
@@ -37,14 +50,14 @@ const Login = ( { setCurrentPage } ) => {
 
       {/* Login Form Card */}
       <div className="login-card">
-        <form onSubmit={handleLogin} className="login-form">
+        <form className="login-form">
           <div className="input-group">
             <input
-              type="text"
-              name="id"
-              placeholder="ID"
-              value={formData.id}
-              onChange={handleInputChange}
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
               className="input-field"
               required
             />
@@ -55,15 +68,21 @@ const Login = ( { setCurrentPage } ) => {
               type="password"
               name="password"
               placeholder="PW"
-              value={formData.password}
-              onChange={handleInputChange}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="input-field"
               required
             />
           </div>
 
+          {error && (
+            <div style={{ color: 'red', fontSize: '12px', marginTop: '5px' }}>
+              {error}
+            </div>
+          )}
+
           <div className="button-group">
-            <button type="submit" className="login-btn">
+            <button type="button" onClick={handleLogin} className="login-btn">
               Log In
             </button>
             

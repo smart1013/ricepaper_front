@@ -1,31 +1,69 @@
 import React, { useState } from 'react';
 import '../styles/signup.css';
 
-const Signup = ({ setCurrentPage }) => {
-  const [formData, setFormData] = useState({
-    id: '',
-    password: '',
-    confirmPassword: ''
-  });
+function isValidPassword(password) {
+  const minLength = 8;
+  const hasUppercase = /[A-Z]/.test(password);
+  const hasLowercase = /[a-z]/.test(password);
+  const hasNumber = /[0-9]/.test(password);
+  const hasSpecialChar = /[!@#$%^&*.]/.test(password);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+  return (
+    password.length >= minLength &&
+    hasUppercase &&
+    hasLowercase &&
+    hasNumber &&
+    hasSpecialChar
+  );
+}
+
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+
+
+const Signup = ({ setCurrentPage }) => {
+  const [userEmail, setUserEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [error, setError] = useState('');
+
 
   const handleSignUp = (e) => {
-    e.preventDefault();
-    console.log('Sign up attempt:', formData);
-    // Add your signup logic here
-  };
+    e.preventDefault(); // Prevent form submission
+    if (!userEmail) {
+      setError('Email is required');
+      return;
+    }
+    else if (!password) {
+      setError('Password is required');
+      return;
+    }
+    else if (!nickname) {
+      setError('Nickname is required');
+      return;
+    }
+    else if (!isValidEmail(userEmail)) {
+      setError('Invalid email address');
+      return;
+    }
+    else if (!isValidPassword(password)) {
+      setError('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
+      return;
+    }
+    setError('');
+    console.log('Sign up attempt:', userEmail, nickname, password);
+    setCurrentPage('login');
+  }
 
+  
   const handleBackToLogin = () => {
     console.log('Back to login clicked');
     setCurrentPage('login');
   };
+
 
   return (
     <div className="signup-container">
@@ -40,10 +78,22 @@ const Signup = ({ setCurrentPage }) => {
           <div className="input-group">
             <input
               type="text"
-              name="id"
-              placeholder="ID"
-              value={formData.id}
-              onChange={handleInputChange}
+              name="email"
+              placeholder="Email"
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
+              className="input-field"
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <input
+              type="text"
+              name="nickname"
+              placeholder="Nickname"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
               className="input-field"
               required
             />
@@ -54,27 +104,21 @@ const Signup = ({ setCurrentPage }) => {
               type="password"
               name="password"
               placeholder="Password"
-              value={formData.password}
-              onChange={handleInputChange}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="input-field"
               required
             />
           </div>
 
-          <div className="input-group">
-            <input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={formData.confirmPassword}
-              onChange={handleInputChange}
-              className="input-field"
-              required
-            />
-          </div>
+          {error && (
+            <div style={{ color: 'red', fontSize: '12px', marginTop: '5px', textAlign: 'center' }}>
+              {error}
+            </div>
+          )}
 
           <div className="button-group">
-            <button type="submit" className="signup-btn">
+            <button type="button" onClick={handleSignUp} className="signup-btn">
               Sign Up
             </button>
             
