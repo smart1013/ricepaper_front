@@ -5,7 +5,6 @@ import glassBottle from '../assets/glassbottle.png';
 import emptyBottle from '../assets/emptyBottle.png';
 import homePageImage from '../assets/homepage.jpg';
 
-
 const Home = ( { selectedUser, setTargetUser } ) => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
@@ -21,14 +20,17 @@ const Home = ( { selectedUser, setTargetUser } ) => {
     console.log(selectedUser);
   }, []);
 
-
-
   const handleLogout = () => {
+    // Clear selectedUser from localStorage
+    localStorage.removeItem('selectedUser');
     navigate('/login');
   }
 
   const handleBottleClick = (targetUserId) => {
-    setTargetUser(targetUserId);
+    const selectedBottle = users.find(user => user.id === targetUserId);
+    setTargetUser(selectedBottle);
+    // Save targetUser to localStorage for persistence
+    localStorage.setItem('targetUser', JSON.stringify(selectedBottle));
     navigate('/message');
   }
 

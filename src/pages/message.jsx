@@ -4,7 +4,7 @@ import '../styles/message.css';
 import messageScreenImage from '../assets/messageScreen.jpg';
 import paperImage from '../assets/paper.png';
 
-const Message = ({ targetUser }) => {
+const Message = ({ selectedUser, targetUser }) => {
     const navigate = useNavigate();
     const [messages, setMessages] = useState([
         { id: 1, from: "김병주", content: "안녕하세요! 오늘 날씨가 정말 좋네요." },
@@ -14,6 +14,11 @@ const Message = ({ targetUser }) => {
         { id: 5, from: "정태희", content: "오늘 하루도 잘 보내세요!" },
         { id: 6, from: "이건", content: "새로운 도전을 응원합니다." },
     ]);
+
+    useEffect(() => {
+        console.log(selectedUser);
+        console.log(targetUser);
+    }, []);
 
     const handleBack = () => {
         navigate('/home');

@@ -3,19 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/login.css';
 import loginScreenImage from '../assets/loginScreen.jpg';
 
-
 function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
-
 
 const Login = ( { setSelectedUser } ) => {
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
 
   const handleLogin = async () => {
     if (!userEmail) {
@@ -47,7 +44,7 @@ const Login = ( { setSelectedUser } ) => {
         }),
       });
       if (!response.ok) {
-        const errorText = await response.text();
+        // const errorText = await response.text();
         setError(`Login failed.`);
         return;
       }

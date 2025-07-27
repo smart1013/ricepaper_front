@@ -11,7 +11,11 @@ const App = () => {
     const savedUser = localStorage.getItem('selectedUser');
     return savedUser ? JSON.parse(savedUser) : null;
   });
-  const [targetUser, setTargetUser] = useState(null);
+  const [targetUser, setTargetUser] = useState(() => {
+    // Get the saved targetUser from localStorage, default to null if none exists
+    const savedTargetUser = localStorage.getItem('targetUser');
+    return savedTargetUser ? JSON.parse(savedTargetUser) : null;
+  });
 
   // Save selectedUser to localStorage whenever it changes
   useEffect(() => {
@@ -22,6 +26,15 @@ const App = () => {
     }
   }, [selectedUser]);
 
+  // Save targetUser to localStorage whenever it changes
+  useEffect(() => {
+    if (targetUser) {
+      localStorage.setItem('targetUser', JSON.stringify(targetUser));
+    } else {
+      localStorage.removeItem('targetUser');
+    }
+  }, [targetUser]);
+
   return (
     <Router>
       <div>
@@ -30,7 +43,7 @@ const App = () => {
           <Route path="/login" element={<Login setSelectedUser={setSelectedUser} />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/home" element={<Home selectedUser={selectedUser} setTargetUser={setTargetUser} />} />
-          <Route path="/message" element={<Message targetUser={targetUser} />} />
+          <Route path="/message" element={<Message targetUser={targetUser} selectedUser={selectedUser}/>} />
         </Routes>
       </div>
     </Router>
