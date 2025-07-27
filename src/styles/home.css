@@ -1,27 +1,35 @@
 /* MessageBottleUI.css */
 .container {
-    background: linear-gradient(to bottom, #49a6e9, #c1e6ff);
-    min-height: 100vh;
+    /* background: linear-gradient(to bottom, #49a6e9, #c1e6ff); */
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem 1rem;
-    background-image: url("../assets/homepage.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: contain;
+    position: relative;
+    overflow: hidden;
+
+  }
+
+.home-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
   }
   
   .bottle-container {
-    width: 100%;
-    max-width: 400px;
-    height: 60vh; /* Fixed height for scrollable area */
-    overflow-y: auto; /* Enable vertical scrolling */
+    width: 70%;
+    height: 75%; 
+    overflow-y: auto; 
     margin-top: 2rem;
     padding: 1rem;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
     backdrop-filter: blur(10px); /* Glass effect */
+    position: relative;
+    z-index: 10; /* Higher than background image */
   }
 
   .bottle-grid {
@@ -36,10 +44,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    padding: 8px;
+    border-radius: 12px;
   }
+
+  .bottle:active {
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+  }
+
+  .bottle:focus {
+    outline: 2px solid #007AFF;
+    outline-offset: 2px;
+  }
+
+
   
   .bottle-img {
-    width: 70px;
+    width: 50px;
     height: auto;
   }
   
@@ -69,13 +94,76 @@
     background: rgba(73, 166, 233, 0.8);
   }
 
+  .button-container {
+    position: relative;
+    z-index: 10;
+    margin-top: 1.8rem;
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .gallery-button {
+    padding: 12px 24px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 25px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .gallery-button:active {
+    transform: scale(0.98);
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .gallery-button:focus {
+    outline: 2px solid #007AFF;
+    outline-offset: 2px;
+  }
+
+
+
+  .logout-button {
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .logout-button:active {
+    transform: scale(0.98);
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .logout-button:focus {
+    outline: 2px solid #007AFF;
+    outline-offset: 2px;
+  }
+
+
+
   @media screen and (max-width: 400px) {
     .bottle-img {
-      width: 60px;
+      width: 40px;
     }
     
     .bottle-container {
-      height: 50vh; /* Smaller height on mobile */
+      height: 35vh; /* Smaller height on mobile */
+      max-width: 250px;
     }
   }
   

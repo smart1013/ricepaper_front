@@ -1,49 +1,92 @@
 import '../styles/home.css'
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import glassBottle from '../assets/glassbottle.png';
 import emptyBottle from '../assets/emptyBottle.png';
+import homePageImage from '../assets/homepage.jpg';
 
-const bottles = [
-  { id: 1, hasMessage: true , name: "김병주"},
-  { id: 2, hasMessage: false , name: "한유진"},
-  { id: 3, hasMessage: false , name: "구자윤"},
-  { id: 4, hasMessage: false , name: "김수연"},
-  { id: 5, hasMessage: false , name: "박보연"},
-  { id: 6, hasMessage: false , name: "김시연"},
-  { id: 7, hasMessage: false , name: "정태희"},
-  { id: 8, hasMessage: true , name: "박진웅"},
-  { id: 9, hasMessage: false , name: "이건오벌도스"},
-];
 
-const Home = ( { setCurrentPage } ) => {
+const Home = ( { selectedUser, setTargetUser } ) => {
+  const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch('http://localhost:3000/users');
+      const data = await response.json();
+      setUsers(data);
+      console.log(data);
+    }
+    fetchData();
+    console.log(selectedUser);
+  }, []);
+
+
 
   const handleLogout = () => {
-    setCurrentPage('login');
+    navigate('/login');
   }
 
-  const handleBottleClick = (bottleId) => {
-    console.log(bottleId);
+  const handleBottleClick = (targetUserId) => {
+    setTargetUser(targetUserId);
+    navigate('/message');
   }
 
   return (
     <div className="container">
+      <img 
+        src={homePageImage}
+        alt="background"
+        className="home-background-image"
+        onLoad={(e) => {
+          const img = e.target;
+          const container = img.parentElement;
+          const aspectRatio = img.naturalWidth / img.naturalHeight;
+          
+          // Mobile screen dimensions (iPhone 12/13/14 size)
+          const mobileWidth = 390;
+          const mobileHeight = 844;
+          
+          let width, height;
+          if (mobileWidth / aspectRatio <= mobileHeight) {
+            width = mobileWidth;
+            height = mobileWidth / aspectRatio;
+          } else {
+            height = mobileHeight;
+            width = mobileHeight * aspectRatio;
+          }
+          
+          container.style.width = width + 'px';
+          container.style.height = height + 'px';
+        }}
+      />
+      
       <div className="bottle-container">
         <div className="bottle-grid">
-          {bottles.map((bottle) => (
-            <div key={bottle.id} className="bottle" onClick={() => handleBottleClick(bottle.id)}>
+          {users.map((user) => (
+            <div key={user.id} className="bottle" onClick={() => handleBottleClick(user.id)}>
               <img
                 src={
-                  bottle.hasMessage
+                  user.hasMessage
                     ? glassBottle
                     : emptyBottle
                 }
                 alt="bottle"
                 className="bottle-img"
               />
-              <div className="label">{bottle.name}</div>
+              <div className="label">{user.nickname}</div>
             </div>
           ))}
         </div>
+      </div>
+      
+      <div className="button-container">
+        <button className="logout-button" onClick={handleLogout}>
+          Logout
+        </button>
+        <button className="gallery-button" onClick={() => console.log('Gallery clicked')}>
+          Gallery
+        </button>
       </div>
     </div>
   );

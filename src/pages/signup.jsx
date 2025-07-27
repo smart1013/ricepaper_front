@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/signup.css';
+import loginScreenImage from '../assets/loginScreen.jpg';
 
-function isValidPassword(password) {
-  const minLength = 8;
-  const hasUppercase = /[A-Z]/.test(password);
-  const hasLowercase = /[a-z]/.test(password);
-  const hasNumber = /[0-9]/.test(password);
-  const hasSpecialChar = /[!@#$%^&*.]/.test(password);
+// function isValidPassword(password) {
+//   const minLength = 8;
+//   const hasUppercase = /[A-Z]/.test(password);
+//   const hasLowercase = /[a-z]/.test(password);
+//   const hasNumber = /[0-9]/.test(password);
+//   const hasSpecialChar = /[!@#$%^&*.]/.test(password);
 
-  return (
-    password.length >= minLength &&
-    hasUppercase &&
-    hasLowercase &&
-    hasNumber &&
-    hasSpecialChar
-  );
-}
+//   return (
+//     password.length >= minLength &&
+//     hasUppercase &&
+//     hasLowercase &&
+//     hasNumber &&
+//     hasSpecialChar
+//   );
+// }
 
 function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -24,14 +26,15 @@ function isValidEmail(email) {
 
 
 
-const Signup = ({ setCurrentPage }) => {
+const Signup = () => {
+  const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nickname, setNickname] = useState('');
   const [error, setError] = useState('');
 
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault(); // Prevent form submission
     if (!userEmail) {
       setError('Email is required');
@@ -49,28 +52,73 @@ const Signup = ({ setCurrentPage }) => {
       setError('Invalid email address');
       return;
     }
-    else if (!isValidPassword(password)) {
-      setError('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
-      return;
-    }
+    // else if (!isValidPassword(password)) {
+    //   setError('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
+    //   return;
+    // }
     setError('');
     console.log('Sign up attempt:', userEmail, nickname, password);
-    setCurrentPage('login');
+
+    // Send data to backend
+    try {
+      const response = await fetch('http://localhost:3000/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: userEmail,
+          password: password,
+          nickname: nickname,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error('Signup failed');
+      }
+      const data = await response.json();
+      console.log('Signup successful:', data);
+      navigate('/login');
+    } catch (error) {
+      console.error('Error signing up:', error);
+    }
   }
 
   
   const handleBackToLogin = () => {
     console.log('Back to login clicked');
-    setCurrentPage('login');
+    navigate('/login');
   };
 
 
   return (
     <div className="signup-container">
       {/* Background Image */}
-      <div 
+      <img 
+        src={loginScreenImage}
+        alt="background"
         className="background-image"
-      ></div>
+        onLoad={(e) => {
+          const img = e.target;
+          const container = img.parentElement;
+          const aspectRatio = img.naturalWidth / img.naturalHeight;
+          
+          // Mobile screen dimensions (iPhone 12/13/14 size)
+          const mobileWidth = 390;
+          const mobileHeight = 844;
+          
+          let width, height;
+          if (mobileWidth / aspectRatio <= mobileHeight) {
+            width = mobileWidth;
+            height = mobileWidth / aspectRatio;
+          } else {
+            height = mobileHeight;
+            width = mobileHeight * aspectRatio;
+          }
+          
+          container.style.width = width + 'px';
+          container.style.height = height + 'px';
+        }}
+      />
 
       {/* Signup Form Card */}
       <div className="signup-card">

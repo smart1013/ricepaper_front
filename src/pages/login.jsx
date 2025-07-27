@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/login.css';
+import loginScreenImage from '../assets/loginScreen.jpg';
 
 
 function isValidEmail(email) {
@@ -8,13 +10,14 @@ function isValidEmail(email) {
 }
 
 
-const Login = ( { setCurrentPage } ) => {
+const Login = ( { setSelectedUser } ) => {
+  const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!userEmail) {
       setError('Email is required');
       return;
@@ -29,14 +32,41 @@ const Login = ( { setCurrentPage } ) => {
     }
     setError('');
     console.log('Login attempt:', userEmail, password);
-    setCurrentPage('home');
+
+
+    // Send data to backend
+    try {
+      const response = await fetch('http://localhost:3000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: userEmail,
+          password: password,
+        }),
+      });
+      if (!response.ok) {
+        const errorText = await response.text();
+        setError(`Login failed.`);
+        return;
+      }
+      const data = await response.json();
+      console.log('Login successful:', data);
+      setSelectedUser(data.user);
+      // Save user data to localStorage for persistence
+      localStorage.setItem('selectedUser', JSON.stringify(data.user));
+      navigate('/home');
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
   };
 
 
 
   const handleSignUp = () => {
     console.log('Sign up clicked'); 
-    setCurrentPage('signup');
+    navigate('/signup');
   };
 
 
@@ -44,9 +74,32 @@ const Login = ( { setCurrentPage } ) => {
   return (
     <div className="login-container">
       {/* Background Image */}
-      <div 
+      <img 
+        src={loginScreenImage}
+        alt="background"
         className="background-image"
-      ></div>
+        onLoad={(e) => {
+          const img = e.target;
+          const container = img.parentElement;
+          const aspectRatio = img.naturalWidth / img.naturalHeight;
+          
+          // Mobile screen dimensions (iPhone 12/13/14 size)
+          const mobileWidth = 390;
+          const mobileHeight = 844;
+          
+          let width, height;
+          if (mobileWidth / aspectRatio <= mobileHeight) {
+            width = mobileWidth;
+            height = mobileWidth / aspectRatio;
+          } else {
+            height = mobileHeight;
+            width = mobileHeight * aspectRatio;
+          }
+          
+          container.style.width = width + 'px';
+          container.style.height = height + 'px';
+        }}
+      />
 
       {/* Login Form Card */}
       <div className="login-card">
@@ -76,7 +129,7 @@ const Login = ( { setCurrentPage } ) => {
           </div>
 
           {error && (
-            <div style={{ color: 'red', fontSize: '12px', marginTop: '5px' }}>
+            <div style={{ color: 'red', fontSize: '12px', marginTop: '5px', textAlign: 'center' }}>
               {error}
             </div>
           )}

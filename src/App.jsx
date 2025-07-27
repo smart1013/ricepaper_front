@@ -1,39 +1,39 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/home'
 import Login from './pages/login'
 import Signup from './pages/signup'
+import Message from './pages/message'
 
 const App = () => {
-
-  const [currentPage, setCurrentPage] = useState(() => {
-    // Get the saved page from localStorage, default to 'login' if none exists
-    return localStorage.getItem('currentPage') || 'login';
+  const [selectedUser, setSelectedUser] = useState(() => {
+    // Get the saved user from localStorage, default to null if none exists
+    const savedUser = localStorage.getItem('selectedUser');
+    return savedUser ? JSON.parse(savedUser) : null;
   });
+  const [targetUser, setTargetUser] = useState(null);
 
-  // Save current page to localStorage whenever it changes
+  // Save selectedUser to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('currentPage', currentPage);
-  }, [currentPage]);
-
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'login':
-        return <Login setCurrentPage={setCurrentPage}/>
-      case 'signup':
-        return <Signup setCurrentPage={setCurrentPage}/>
-      case 'home':
-        return <Home setCurrentPage={setCurrentPage}/>
-      default:
-        return <Login setCurrentPage={setCurrentPage}/>
+    if (selectedUser) {
+      localStorage.setItem('selectedUser', JSON.stringify(selectedUser));
+    } else {
+      localStorage.removeItem('selectedUser');
     }
-  }
-
+  }, [selectedUser]);
 
   return (
-    <div>
-      {renderPage()}
-    </div>
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/login" element={<Login setSelectedUser={setSelectedUser} />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/home" element={<Home selectedUser={selectedUser} setTargetUser={setTargetUser} />} />
+          <Route path="/message" element={<Message targetUser={targetUser} />} />
+        </Routes>
+      </div>
+    </Router>
   )
 }
 
