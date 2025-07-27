@@ -12,13 +12,24 @@
     background-size: contain;
   }
   
+  .bottle-container {
+    width: 100%;
+    max-width: 400px;
+    height: 60vh; /* Fixed height for scrollable area */
+    overflow-y: auto; /* Enable vertical scrolling */
+    margin-top: 2rem;
+    padding: 1rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Glass effect */
+  }
+
   .bottle-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     width: 100%;
-    max-width: 400px;
-    margin-top: 2rem;
+    padding-bottom: 1rem; /* Add padding at bottom for better scrolling */
   }
   
   .bottle {
@@ -39,9 +50,32 @@
     text-align: center;
   }
   
+  /* Custom scrollbar styling */
+  .bottle-container::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .bottle-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+
+  .bottle-container::-webkit-scrollbar-thumb {
+    background: rgba(73, 166, 233, 0.6);
+    border-radius: 4px;
+  }
+
+  .bottle-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(73, 166, 233, 0.8);
+  }
+
   @media screen and (max-width: 400px) {
     .bottle-img {
       width: 60px;
+    }
+    
+    .bottle-container {
+      height: 50vh; /* Smaller height on mobile */
     }
   }
   

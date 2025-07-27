@@ -11,8 +11,8 @@ const bottles = [
   { id: 5, hasMessage: false , name: "박보연"},
   { id: 6, hasMessage: false , name: "김시연"},
   { id: 7, hasMessage: false , name: "정태희"},
-  { id: 8, hasMessage: true , name: "김진웅"},
-  { id: 9, hasMessage: false , name: "이건오벌도스"}
+  { id: 8, hasMessage: true , name: "박진웅"},
+  { id: 9, hasMessage: false , name: "이건오벌도스"},
 ];
 
 const Home = ( { setCurrentPage } ) => {
@@ -25,26 +25,26 @@ const Home = ( { setCurrentPage } ) => {
     console.log(bottleId);
   }
 
-
   return (
     <div className="container">
-      <div className="bottle-grid">
-        {bottles.map((bottle) => (
-          <div key={bottle.id} className="bottle" onClick={() => handleBottleClick(bottle.id)}>
-            <img
-              src={
-                bottle.hasMessage
-                  ? glassBottle
-                  : emptyBottle
-              }
-              alt="bottle"
-              className="bottle-img"
-            />
-            <div className="label">{bottle.name}</div>
-          </div>
-        ))}
+      <div className="bottle-container">
+        <div className="bottle-grid">
+          {bottles.map((bottle) => (
+            <div key={bottle.id} className="bottle" onClick={() => handleBottleClick(bottle.id)}>
+              <img
+                src={
+                  bottle.hasMessage
+                    ? glassBottle
+                    : emptyBottle
+                }
+                alt="bottle"
+                className="bottle-img"
+              />
+              <div className="label">{bottle.name}</div>
+            </div>
+          ))}
+        </div>
       </div>
-
     </div>
   );
 };
