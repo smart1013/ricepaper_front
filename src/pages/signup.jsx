@@ -77,7 +77,7 @@ const Signup = ({ setCurrentPage }) => {
         <form onSubmit={handleSignUp} className="signup-form">
           <div className="input-group">
             <input
-              type="text"
+              type="email"
               name="email"
               placeholder="Email"
               value={userEmail}

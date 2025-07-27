@@ -1,16 +1,18 @@
 import '../styles/home.css'
 import React from "react";
+import glassBottle from '../assets/glassbottle.png';
+import emptyBottle from '../assets/emptyBottle.png';
 
 const bottles = [
-  { id: 1, hasMessage: true },
-  { id: 2, hasMessage: false },
-  { id: 3, hasMessage: false },
-  { id: 4, hasMessage: false },
-  { id: 5, hasMessage: false },
-  { id: 6, hasMessage: false },
-  { id: 7, hasMessage: false },
-  { id: 8, hasMessage: true },
-  { id: 9, hasMessage: false },
+  { id: 1, hasMessage: true , name: "김병주"},
+  { id: 2, hasMessage: false , name: "한유진"},
+  { id: 3, hasMessage: false , name: "구자윤"},
+  { id: 4, hasMessage: false , name: "김수연"},
+  { id: 5, hasMessage: false , name: "박보연"},
+  { id: 6, hasMessage: false , name: "김시연"},
+  { id: 7, hasMessage: false , name: "정태희"},
+  { id: 8, hasMessage: true , name: "김진웅"},
+  { id: 9, hasMessage: false , name: "이건오벌도스"}
 ];
 
 const Home = ( { setCurrentPage } ) => {
@@ -19,26 +21,30 @@ const Home = ( { setCurrentPage } ) => {
     setCurrentPage('login');
   }
 
+  const handleBottleClick = (bottleId) => {
+    console.log(bottleId);
+  }
+
 
   return (
     <div className="container">
       <div className="bottle-grid">
         {bottles.map((bottle) => (
-          <div key={bottle.id} className="bottle">
+          <div key={bottle.id} className="bottle" onClick={() => handleBottleClick(bottle.id)}>
             <img
               src={
                 bottle.hasMessage
-                  ? "your-message-bottle-url.png"
-                  : "your-empty-bottle-url.png"
+                  ? glassBottle
+                  : emptyBottle
               }
               alt="bottle"
               className="bottle-img"
             />
-            <div className="label">이름</div>
+            <div className="label">{bottle.name}</div>
           </div>
         ))}
       </div>
-      <button onClick={handleLogout}>Logout</button>
+
     </div>
   );
 };
