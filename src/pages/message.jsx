@@ -65,6 +65,16 @@ const Message = ({ targetUser }) => {
                     ))}
                 </div>
             </div>
+
+            {/* Button Container */}
+            <div className="message-button-container">
+                <button className="back-home-button" onClick={handleBack}>
+                    뒤로가기
+                </button>
+                <button className="write-button" onClick={() => console.log('글쓰기 clicked')}>
+                    글쓰기
+                </button>
+            </div>
         </div>
     );
 };

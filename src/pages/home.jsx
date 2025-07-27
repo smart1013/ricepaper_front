@@ -82,10 +82,10 @@ const Home = ( { selectedUser, setTargetUser } ) => {
       
       <div className="button-container">
         <button className="logout-button" onClick={handleLogout}>
-          Logout
+          로그아웃
         </button>
         <button className="gallery-button" onClick={() => console.log('Gallery clicked')}>
-          Gallery
+          갤러리
         </button>
       </div>
     </div>

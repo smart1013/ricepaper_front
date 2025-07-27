@@ -13,39 +13,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   z-index: 1;
-}
-
-/* Back Button */
-.back-button {
-  position: relative;
-  z-index: 10;
-  top: 20px;
-  left: 20px;
-  align-self: flex-start;
-  background: rgba(0, 0, 0, 0.7);
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.1s ease;
-  margin: 20px 0 0 20px;
-}
-
-.back-button:active {
-  transform: scale(0.95);
-  background: rgba(0, 0, 0, 0.8);
-}
-
-.back-arrow {
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
 }
 
 /* Message Container */
@@ -53,13 +22,15 @@
   position: relative;
   z-index: 10;
   width: 70%;
-  height: 70%;
+  height: 75%;
   overflow-y: auto;
-  margin-top: 80px;
+  margin-top: 2rem;
   padding: 1rem;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 10;
 }
 
 .message-grid {
@@ -141,4 +112,53 @@
   .message-label {
     font-size: 0.75rem;
   }
+}
+
+/* Button Container */
+.message-button-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.back-home-button {
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 25px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.back-home-button:active {
+  transform: scale(0.98);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.write-button {
+  padding: 12px 24px;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 25px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.write-button:active {
+  transform: scale(0.98);
+  background: rgba(0, 0, 0, 0.3);
 }
