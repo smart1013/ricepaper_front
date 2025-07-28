@@ -69,7 +69,7 @@ const Home = ( { selectedUser, setTargetUser } ) => {
             <div key={user.id} className="bottle" onClick={() => handleBottleClick(user.id)}>
               <img
                 src={
-                  user.hasMessage
+                  user.allWritten
                     ? glassBottle
                     : emptyBottle
                 }
