@@ -40,11 +40,10 @@ const Message = ({ selectedUser, targetUser }) => {
         if (selectedUser.id === targetUser.id || selectedUser.id === message.sender.id) {
             setSelectedMessage(message);
             setShowModal(true);
-            setErrorMessage(''); // Clear any previous error
+            setErrorMessage(''); 
         } else {
-            // Show "열람할 수 없습니다" message below container
             setErrorMessage('열람할 수 없습니다');
-            setShowModal(false); // Don't show popup
+            setShowModal(false); 
             setSelectedMessage(null);
         }
     };
@@ -66,7 +65,6 @@ const Message = ({ selectedUser, targetUser }) => {
     const handleSubmitMessage = async () => {
         if (messageContent !== '') {
             console.log('Sending message:', messageContent);
-            // TODO: Implement API call to send message
             const response = await fetch('http://localhost:3000/messages', {
                 method: 'POST',
                 headers: {
