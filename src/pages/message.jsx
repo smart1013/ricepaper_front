@@ -36,8 +36,8 @@ const Message = ({ selectedUser, targetUser }) => {
     };
 
     const handleMessageClick = (message) => {
-        // Check if selectedUser is the same as targetUser
-        if (selectedUser.id === targetUser.id) {
+        // Check if selectedUser is the same as targetUser OR if selectedUser is the sender
+        if (selectedUser.id === targetUser.id || selectedUser.id === message.sender.id) {
             setSelectedMessage(message);
             setShowModal(true);
             setErrorMessage(''); // Clear any previous error
