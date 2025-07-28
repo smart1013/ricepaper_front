@@ -34,6 +34,10 @@ const Home = ( { selectedUser, setTargetUser } ) => {
     navigate('/message');
   }
 
+  const handleGalleryClick = () => {
+    navigate('/gallery');
+  }
+
   return (
     <div className="container">
       <img 
@@ -86,7 +90,7 @@ const Home = ( { selectedUser, setTargetUser } ) => {
         <button className="logout-button" onClick={handleLogout}>
           로그아웃
         </button>
-        <button className="gallery-button" onClick={() => console.log('Gallery clicked')}>
+        <button className="gallery-button" onClick={handleGalleryClick}>
           갤러리
         </button>
       </div>

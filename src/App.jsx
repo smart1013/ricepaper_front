@@ -4,6 +4,7 @@ import Home from './pages/home'
 import Login from './pages/login'
 import Signup from './pages/signup'
 import Message from './pages/message'
+import Gallery from './pages/gallery'
 
 const App = () => {
   const [selectedUser, setSelectedUser] = useState(() => {
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/home" element={<Home selectedUser={selectedUser} setTargetUser={setTargetUser} />} />
           <Route path="/message" element={<Message targetUser={targetUser} selectedUser={selectedUser}/>} />
+          <Route path="/gallery" element={<Gallery targetUser={targetUser} selectedUser={selectedUser}/>} />
         </Routes>
       </div>
     </Router>
