@@ -176,7 +176,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
             {/* Button Container */}
             <div className="gallery-button-container">
                 <button className="back-home-button" onClick={handleBack}>
-                    뒤로가기
+                    롤링페이퍼
                 </button>
                 <button className="upload-button" onClick={handleUploadClick}>
                     업로드

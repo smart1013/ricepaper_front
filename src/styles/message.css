@@ -21,10 +21,11 @@
 
 /* Message Container */
 .message-list-container {
+  flex: 1;
   position: relative;
   z-index: 10;
   width: 70%;
-  height: 75%;
+  max-height: 75%;
   overflow-y: auto;
   margin-top: 2rem;
   padding: 1rem;
