@@ -14,44 +14,19 @@ const Gallery = ({ selectedUser, targetUser }) => {
     });
     const [postContent, setPostContent] = useState('');
     const [imgUrl, setImgUrl] = useState('');
+    const fetchGalleryData = async () => {
+            try {
+            const response = await fetch('http://localhost:3000/posts'); // 너 백엔드 주소
+            if (!response.ok) throw new Error('Failed to fetch gallery');
+            const data = await response.json();
+            setGalleryList(data);
+            } catch (error) {
+            console.error('갤러리 불러오기 실패:', error);
+            }
+    };
 
     useEffect(() => {
-        console.log(selectedUser);
-        // TODO: Fetch gallery photos from API
-        // const fetchGalleryData = async () => {
-        //     const response = await fetch('http://localhost:3000/gallery');
-        //     const data = await response.json();
-        //     setGalleryList(data);
-        // };
-        // fetchGalleryData();
-        
-        // Sample data for testing
-        setGalleryList([
-            {
-                id: 1,
-                title: "바다",
-                imageUrl: "https://via.placeholder.com/80x80/87CEEB/FFFFFF?text=바다",
-                userId: 1
-            },
-            {
-                id: 2,
-                title: "산",
-                imageUrl: "https://via.placeholder.com/80x80/90EE90/FFFFFF?text=산",
-                userId: 2
-            },
-            {
-                id: 3,
-                title: "도시",
-                imageUrl: "https://via.placeholder.com/80x80/DDA0DD/FFFFFF?text=도시",
-                userId: 1
-            },
-            {
-                id: 4,
-                title: "꽃",
-                imageUrl: "https://via.placeholder.com/80x80/FFB6C1/FFFFFF?text=꽃",
-                userId: 3
-            }
-        ]);
+        fetchGalleryData();
     }, []);
 
     const handleBack = () => {
@@ -109,45 +84,39 @@ const Gallery = ({ selectedUser, targetUser }) => {
         }
 
         try {
-            // Create FormData object
             const formData = new FormData();
             formData.append('file', uploadForm.image);
 
-            // Send to backend
             const response = await fetch('http://localhost:3000/upload', {
-                method: 'POST',
-                body: formData
+            method: 'POST',
+            body: formData
             });
 
             if (!response.ok) {
-                throw new Error(`Upload failed: ${response.statusText}`);
+            throw new Error(`Upload failed: ${response.statusText}`);
             }
 
             const result = await response.json();
             console.log('Upload successful:', result);
 
-            setImgUrl(result.url);
-
-        } catch (error) {
-            console.error('Upload error:', error);
-            alert('업로드에 실패했습니다. 다시 시도해주세요.');
-        }
-
-        try {
-            const response = await fetch('http://localhost:3000/posts', {
-                method: 'POST',
-                body: JSON.stringify({
-                    content: postContent,
-                    imageUrl: imgUrl
-                })
+            // ✅ 여기서 바로 post 생성!
+            await fetch('http://localhost:3000/posts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                content: postContent,
+                imageUrl: result.url,
+            }),
             });
-            console.log(response);
+
+            await fetchGalleryData();
+            handleClosePopup();
         } catch (error) {
             console.error('Upload error:', error);
             alert('업로드에 실패했습니다. 다시 시도해주세요.');
         }
-
-        handleClosePopup();
     };
 
     return (
@@ -183,11 +152,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
                 <div className="photo-grid">
                     {galleryList.map((photo) => (
                         <div key={photo.id} className="photo-item" onClick={() => handlePhotoClick(photo)}>
-                            <img
-                                src={photo.imageUrl}
-                                alt="gallery photo"
-                                className="photo-img"
-                            />
+                            <img src={photo.imageUrl} alt="gallery photo" className="photo-img" />
                         </div>
                     ))}
                 </div>
