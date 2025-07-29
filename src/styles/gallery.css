@@ -35,13 +35,13 @@
 
 .photo-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
   width: 100%;
   padding-bottom: 1rem;
 }
 
 .photo-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,8 +63,8 @@
 }
 
 .photo-img {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -161,11 +161,6 @@
 
 /* Responsive Design */
 @media screen and (max-width: 400px) {
-  .photo-img {
-    width: 150px;
-    height: 150px;
-  }
-  
   .photo-container {
     height: 50vh;
     max-width: 300px;
@@ -447,11 +442,211 @@
   text-align: center;
 }
 
+/* Photo Detail Popup Styles */
+.photo-detail-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
 
+.photo-detail-popup {
+  position: relative;
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 
+}
 
+.photo-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
 
+.photo-detail-author {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
 
+.photo-detail-img {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
 
+.photo-detail-content {
+  padding: 15px 0;
+}
 
+.photo-detail-content p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
 
+/* Comments Section */
+.comments-section {
+  margin-top: 15px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.comments-list {
+  max-height: 150px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+}
+
+.comment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.comment-item strong {
+  margin-right: 5px;
+}
+
+.comment-input-container {
+  display: flex;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.comment-input {
+  flex-grow: 1;
+  border: none;
+  padding: 8px;
+  font-size: 13px;
+}
+
+.comment-input:focus {
+  outline: none;
+}
+
+.comment-submit-button {
+  background: none;
+  border: none;
+  color: #007AFF;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.photo-detail-popup {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Action Menu Styles */
+.popup-header-actions {
+  position: relative; /* 이미지 위에 고정 안 되게 */
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;  /* 이미지와 약간의 간격 */
+  z-index: 1;
+}
+
+.more-options-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0 8px;
+    position: relative;
+    top: -6px; /* 위로 이동 */
+}
+
+.action-menu {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    width: max-content;
+}
+
+.action-menu button {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.action-menu button:hover {
+    background-color: #f5f5f5;
+}
+
+/* Edit Mode Styles */
+.edit-mode {
+    width: 100%;
+}
+
+.edit-textarea {
+    width: 100%;
+    min-height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 14px;
+    resize: vertical;
+}
+
+.edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.edit-actions button {
+    padding: 6px 12px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.edit-actions button:last-child {
+    background-color: #007AFF;
+    color: white;
+    border-color: #007AFF;
+}
+
+.delete-comment-button {
+    background: none;
+    border: none;
+    color: #ff3b30;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 5px;
+}
