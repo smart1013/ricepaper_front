@@ -25,6 +25,7 @@
     width: 70%;
     max-height: 75%; 
     overflow-y: auto; 
+    overflow-x: hidden;
     margin-top: 2rem;
     padding: 1rem;
     border-radius: 10px;
@@ -32,6 +33,10 @@
     backdrop-filter: blur(10px); /* Glass effect */
     position: relative;
     z-index: 10; /* Higher than background image */
+    /* Enable smooth scrolling */
+    scroll-behavior: smooth;
+    /* Prevent horizontal scroll */
+    -webkit-overflow-scrolling: touch; /* For iOS smooth scrolling */
   }
 
   .bottle-grid {

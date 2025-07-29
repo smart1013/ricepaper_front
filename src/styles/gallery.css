@@ -6,6 +6,8 @@
   align-items: center;
   width: 100vw;
   height: 100vh;
+  /* Prevent any scrolling */
+  overflow: hidden;
 }
 
 
@@ -25,6 +27,7 @@
   width: 70%;
   max-height: 75%; 
   overflow-y: auto; 
+  overflow-x: hidden;
   margin-top: 2rem;
   padding: 1rem;
   border-radius: 10px;
@@ -32,6 +35,10 @@
   backdrop-filter: blur(10px);
   position: relative;
   z-index: 10;
+  /* Enable smooth scrolling */
+  scroll-behavior: smooth;
+  /* Prevent horizontal scroll */
+  -webkit-overflow-scrolling: touch; /* For iOS smooth scrolling */
 }
 
 .photo-grid {
