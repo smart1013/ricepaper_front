@@ -70,14 +70,12 @@ const Login = ( { setSelectedUser } ) => {
 
   return (
     <div className="login-container">
-      {/* Background Image */}
       <img 
         src={loginScreenImage}
         alt="background"
-        className="background-image"
+        className="login-background-image"
       />
 
-      {/* Login Form Card */}
       <div className="login-card">
         <form className="login-form">
           <div className="input-group">
