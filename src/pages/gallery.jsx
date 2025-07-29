@@ -125,26 +125,6 @@ const Gallery = ({ selectedUser, targetUser }) => {
                 src={galleryScreenImage} 
                 alt="gallery" 
                 className="gallery-background-image"
-                onLoad={(e) => {
-                    const img = e.target;
-                    const container = img.parentElement;
-                    const aspectRatio = img.naturalWidth / img.naturalHeight;
-
-                    const mobileWidth = 390;
-                    const mobileHeight = 844;
-                    
-                    let width, height;
-                    if (mobileWidth / aspectRatio <= mobileHeight) {
-                        width = mobileWidth;
-                        height = mobileWidth / aspectRatio;
-                    } else {
-                        height = mobileHeight;
-                        width = mobileHeight * aspectRatio;
-                    }
-                    
-                    container.style.width = width + 'px';
-                    container.style.height = height + 'px';
-                }}
             />
 
             {/* Photo Container */}
