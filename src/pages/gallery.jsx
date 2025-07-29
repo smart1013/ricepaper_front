@@ -19,7 +19,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
 
     const fetchUsers = async () => {
         try {
-            const response = await fetch('http://localhost:3000/users');
+            const response = await fetch('https://ricepaper-backend.onrender.com/users');
             if (!response.ok) throw new Error('Failed to fetch users');
             const usersData = await response.json();
             const usersMap = usersData.reduce((acc, user) => {
@@ -34,7 +34,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
 
     const fetchGalleryData = async () => {
             try {
-            const response = await fetch('http://localhost:3000/posts?_expand=user'); // 너 백엔드 주소
+            const response = await fetch('https://ricepaper-backend.onrender.com/posts?_expand=user'); // 너 백엔드 주소
             if (!response.ok) throw new Error('Failed to fetch gallery');
             const data = await response.json();
             setGalleryList(data);
@@ -60,7 +60,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
 
     const fetchComments = async (postId) => {
         try {
-            const response = await fetch(`http://localhost:3000/posts/${postId}/comments`);
+            const response = await fetch(`https://ricepaper-backend.onrender.com/posts/${postId}/comments`);
             if (!response.ok) throw new Error('Failed to fetch comments');
             const data = await response.json();
             console.log('댓글 응답 데이터:', data); // 👉 이거!
@@ -86,7 +86,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
         }
 
         try {
-            const response = await fetch(`http://localhost:3000/posts/${selectedPhoto.id}`, {
+            const response = await fetch(`https://ricepaper-backend.onrender.com/posts/${selectedPhoto.id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
         }
 
         try {
-            const response = await fetch(`http://localhost:3000/posts/${postId}`, {
+            const response = await fetch(`https://ricepaper-backend.onrender.com/posts/${postId}`, {
                 method: 'DELETE',
             });
 
@@ -137,7 +137,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
         }
 
         try {
-            const response = await fetch(`http://localhost:3000/comments/${commentId}`, {
+            const response = await fetch(`https://ricepaper-backend.onrender.com/comments/${commentId}`, {
                 method: 'DELETE',
             });
 
@@ -154,7 +154,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
         if (!newComment.trim() || !selectedPhoto) return;
 
         try {
-            const response = await fetch(`http://localhost:3000/posts/${selectedPhoto.id}/comments`, {
+            const response = await fetch(`https://ricepaper-backend.onrender.com/posts/${selectedPhoto.id}/comments`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -232,7 +232,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
             const formData = new FormData();
             formData.append('file', uploadForm.image);
 
-            const response = await fetch('http://localhost:3000/upload', {
+            const response = await fetch('https://ricepaper-backend.onrender.com/upload', {
             method: 'POST',
             body: formData
             });
@@ -245,7 +245,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
             console.log('Upload successful:', result);
 
             // ✅ 여기서 바로 post 생성!
-            await fetch('http://localhost:3000/posts', {
+            await fetch('https://ricepaper-backend.onrender.com/posts', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -16,7 +16,7 @@ const Message = ({ selectedUser, targetUser }) => {
 
     const fetchData = async () => {
         const userId = targetUser.id;
-        const response = await fetch(`http://localhost:3000/messages/received/${userId}`);
+        const response = await fetch(`https://ricepaper-backend.onrender.com/messages/received/${userId}`);
         const data = await response.json();
         setMessageList(data);
         console.log(data);
@@ -65,7 +65,7 @@ const Message = ({ selectedUser, targetUser }) => {
     const handleSubmitMessage = async () => {
         if (messageContent !== '') {
             console.log('Sending message:', messageContent);
-            const response = await fetch('http://localhost:3000/messages', {
+            const response = await fetch('https://ricepaper-backend.onrender.com/messages', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

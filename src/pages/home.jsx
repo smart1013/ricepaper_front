@@ -11,7 +11,7 @@ const Home = ( { selectedUser, setTargetUser } ) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('http://localhost:3000/users');
+      const response = await fetch('https://ricepaper-backend.onrender.com/users');
       const data = await response.json();
       setUsers(data);
       console.log(data);
