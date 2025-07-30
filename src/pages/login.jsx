@@ -103,7 +103,7 @@ const Login = ( { setSelectedUser } ) => {
           </div>
 
           {error && (
-            <div style={{ color: 'red', fontSize: '12px', marginTop: '5px', textAlign: 'center' }}>
+            <div style={{ color: 'red', fontSize: '12px', marginTop: '5px', textAlign: 'center', zIndex: '1000' }}>
               {error}
             </div>
           )}
