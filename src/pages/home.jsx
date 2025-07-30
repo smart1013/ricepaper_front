@@ -14,10 +14,10 @@ const Home = ( { selectedUser, setTargetUser } ) => {
       const response = await fetch('https://ricepaper-backend.onrender.com/users');
       const data = await response.json();
       setUsers(data);
-      console.log(data);
+      // console.log(data);
     }
     fetchData();
-    console.log(selectedUser);
+    // console.log(selectedUser);
   }, []);
 
   const handleLogout = () => {

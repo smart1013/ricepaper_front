@@ -57,7 +57,7 @@ const Signup = () => {
     //   return;
     // }
     setError('');
-    console.log('Sign up attempt:', userEmail, nickname, password);
+    // console.log('Sign up attempt:', userEmail, nickname, password);
 
     // Send data to backend
     try {
@@ -76,16 +76,16 @@ const Signup = () => {
         throw new Error('Signup failed');
       }
       const data = await response.json();
-      console.log('Signup successful:', data);
+      // console.log('Signup successful:', data);
       navigate('/login');
     } catch (error) {
-      console.error('Error signing up:', error);
+      // console.error('Error signing up:', error);
     }
   }
 
   
   const handleBackToLogin = () => {
-    console.log('Back to login clicked');
+    // console.log('Back to login clicked');
     navigate('/login');
   };
 

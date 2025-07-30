@@ -28,7 +28,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
             }, {});
             setUsers(usersMap);
         } catch (error) {
-            console.error('사용자 정보 불러오기 실패:', error);
+            // console.error('사용자 정보 불러오기 실패:', error);
         }
     };
 
@@ -39,7 +39,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
             const data = await response.json();
             setGalleryList(data);
             } catch (error) {
-            console.error('갤러리 불러오기 실패:', error);
+            // console.error('갤러리 불러오기 실패:', error);
             }
     };
 
@@ -63,10 +63,10 @@ const Gallery = ({ selectedUser, targetUser }) => {
             const response = await fetch(`https://ricepaper-backend.onrender.com/posts/${postId}/comments`);
             if (!response.ok) throw new Error('Failed to fetch comments');
             const data = await response.json();
-            console.log('댓글 응답 데이터:', data); // 👉 이거!
+            // console.log('댓글 응답 데이터:', data); // 👉 이거!
             setComments(data);
         } catch (error) {
-            console.error('댓글 불러오기 실패:', error);
+            // console.error('댓글 불러오기 실패:', error);
             setComments([]); // Clear comments on error
         }
     };
@@ -105,7 +105,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
             setIsEditing(false);
             setShowActionMenu(false);
         } catch (error) {
-            console.error('게시글 수정 실패:', error);
+            // console.error('게시글 수정 실패:', error);
             alert('게시글 수정에 실패했습니다.');
         }
     };
@@ -126,7 +126,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
             handleClosePhotoDetail();
             fetchGalleryData(); // Refresh gallery list
         } catch (error) {
-            console.error('게시글 삭제 실패:', error);
+            // console.error('게시글 삭제 실패:', error);
             alert('게시글 삭제에 실패했습니다.');
         }
     };
@@ -145,7 +145,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
 
             fetchComments(selectedPhoto.id); // Refresh comments
         } catch (error) {
-            console.error('댓글 삭제 실패:', error);
+            // console.error('댓글 삭제 실패:', error);
             alert('댓글 삭제에 실패했습니다.');
         }
     };
@@ -170,7 +170,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
             setNewComment('');
             fetchComments(selectedPhoto.id); // Refresh comments
         } catch (error) {
-            console.error('댓글 등록 실패:', error);
+            // console.error('댓글 등록 실패:', error);
             alert('댓글 등록에 실패했습니다.');
         }
     };
@@ -260,7 +260,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
             await fetchGalleryData();
             handleClosePopup();
         } catch (error) {
-            console.error('Upload error:', error);
+            // console.error('Upload error:', error);
             alert('업로드에 실패했습니다. 다시 시도해주세요.');
         }
     };

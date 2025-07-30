@@ -19,13 +19,13 @@ const Message = ({ selectedUser, targetUser }) => {
         const response = await fetch(`https://ricepaper-backend.onrender.com/messages/received/${userId}`);
         const data = await response.json();
         setMessageList(data);
-        console.log(data);
+        // console.log(data);
     }
 
     useEffect(() => {
         fetchData();
-        console.log(selectedUser);
-        console.log(targetUser);
+        // console.log(selectedUser);
+        // console.log(targetUser);
     }, []);
 
     const handleBack = () => {
@@ -64,7 +64,7 @@ const Message = ({ selectedUser, targetUser }) => {
 
     const handleSubmitMessage = async () => {
         if (messageContent !== '') {
-            console.log('Sending message:', messageContent);
+            // console.log('Sending message:', messageContent);
             const response = await fetch('https://ricepaper-backend.onrender.com/messages', {
                 method: 'POST',
                 headers: {
@@ -81,7 +81,7 @@ const Message = ({ selectedUser, targetUser }) => {
                 return;
             }
             const data = await response.json();
-            console.log('Message sent:', data);
+            // console.log('Message sent:', data);
             setShowWriteModal(false);
             fetchData();
             setMessageContent('');
