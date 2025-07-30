@@ -22,7 +22,7 @@
   
   .bottle-container {
     flex: 1;
-    width: 70%;
+    width: 80%;
     max-height: 75%; 
     overflow-y: auto; 
     overflow-x: hidden;

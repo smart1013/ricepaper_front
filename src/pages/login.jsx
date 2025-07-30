@@ -28,7 +28,7 @@ const Login = ( { setSelectedUser } ) => {
       return;
     }
     setError('');
-    console.log('Login attempt:', userEmail, password);
+    // console.log('Login attempt:', userEmail, password);
 
 
     // Send data to backend
@@ -49,20 +49,20 @@ const Login = ( { setSelectedUser } ) => {
         return;
       }
       const data = await response.json();
-      console.log('Login successful:', data);
+      // console.log('Login successful:', data);
       setSelectedUser(data.user);
       // Save user data to localStorage for persistence
       localStorage.setItem('selectedUser', JSON.stringify(data.user));
       navigate('/home');
     } catch (error) {
-      console.error('Error logging in:', error);
+      // console.error('Error logging in:', error);
     }
   };
 
 
 
   const handleSignUp = () => {
-    console.log('Sign up clicked'); 
+    // console.log('Sign up clicked'); 
     navigate('/signup');
   };
 
