@@ -160,7 +160,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    commenterId: 1, // As per user's instruction
+                    commenterId: selectedUser.id, // As per user's instruction
                     content: newComment,
                 }),
             });
@@ -251,7 +251,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                userId: 1, // 임시로 userId 1로 설정
+                userId: selectedUser.id, // 임시로 userId 1로 설정
                 content: postContent,
                 imageUrl: result.url,
             }),
