@@ -38,6 +38,7 @@ const Gallery = ({ selectedUser, targetUser }) => {
             if (!response.ok) throw new Error('Failed to fetch gallery');
             const data = await response.json();
             setGalleryList(data);
+            console.log(data);
             } catch (error) {
             // console.error('갤러리 불러오기 실패:', error);
             }
